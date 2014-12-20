@@ -1,0 +1,3 @@
+[submodule "libs/mario"]
+	path = libs/mario
+	url = https://github.com/fischeversenker/mario
