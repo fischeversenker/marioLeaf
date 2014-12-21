@@ -8,11 +8,17 @@ define(function(require, exports)  {
 
     exports.populate = function(world) {
 
+        var LayerList = world.createAndAddLayerList();
+        var Layer = LayerList.createAndAddLayer();
+        var Layer2 = LayerList.createAndAddLayer();
+        var EntityList = Layer.createAndSetEntityList();
+        var EntityList2 = Layer2.createAndSetEntityList();
+
         var player = new Player();
         var static1 = new StaticEntity();
 
-        world.setPlayer(player);
-        world.addEntity(static1);
+        EntityList.add(player); // Player auf Layer 0
+        EntityList2.add(static1); // Static1 auf Layer 1
 
     };
 });

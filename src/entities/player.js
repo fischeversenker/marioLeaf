@@ -6,22 +6,25 @@ define(function(require, exports, module)  {
 
 	function Player() {
         this._parent.constructor.call(this);
-        this.pos = Engine.getPhysics().createVector2(200, 150);
-        this.width = 200;
-        this.height = 200;
-        this.color = "#cf0";
+        this.pos = Engine.getPhysics().createVector2(170, 180);
+        this.shape = Engine.getEntityManager().createShape('SimpleShape');
+        this.shape.width = 80;
 	}
 
-	Player.prototype = Engine.getEntityFactory().inheritFrom('Player');
+	Player.prototype = Engine.getEntityManager().getEntityFactory().inheritFrom('Player');
 	Player.prototype.constructor = Player;
 	Player.prototype.render = function(ctx) {
         ctx.save();
         ctx.translate(this.pos.x, this.pos.y);
-        ctx.fillStyle = this.color;
-        // ctx.fillRect(-this.getCenter().x, -this.getCenter().y, this.width, this.height);
-        ctx.fillRect(0,0, this.width, this.height);
+        ctx.fillStyle = this.shape.color;
+        ctx.fillRect(-this.getCenter().x, -this.getCenter().y, this.shape.width, this.shape.height);
         ctx.restore();
 	};
+
+    Player.prototype.getCenter = function (){
+        return Engine.getPhysics().createVector2(this.shape.width / 2, this.shape.height / 2);
+
+    };
 
 	module.exports = Player;
 });

@@ -6,23 +6,25 @@ define(function(require, exports, module)  {
 
 	function StaticEntity() {
         this._parent.constructor.call(this);
-        this.pos = Engine.getPhysics().createVector2(300, 50);
-        this.width = 400;
-        this.height = 100;
-        this.color = "#cfa";
+        this.pos = Engine.getPhysics().createVector2(300, 150);
+        this.shape = Engine.getEntityManager().createShape('SimpleShape');
+        this.shape.color = '#4c9';
 	}
 
-	StaticEntity.prototype = Engine.getEntityFactory().inheritFrom('StaticShape');
+	StaticEntity.prototype = Engine.getEntityManager().getEntityFactory().inheritFrom('Entity');
 	StaticEntity.prototype.constructor = StaticEntity;
 	StaticEntity.prototype.render = function(ctx) {
         ctx.save();
         ctx.translate(this.pos.x, this.pos.y);
-        ctx.fillStyle = this.color;
-        console.log(this);
-        // ctx.fillRect(-this.getCenter().x, -this.getCenter().y, this.width, this.height);
-        ctx.fillRect(0, 0, this.width, this.height);
+        ctx.fillStyle = this.shape.color;
+        ctx.fillRect(-this.getCenter().x, -this.getCenter().y, this.shape.width, this.shape.height);
         ctx.restore();
 	};
+
+    StaticEntity.prototype.getCenter = function (){
+        return Engine.getPhysics().createVector2(this.shape.width / 2, this.shape.height / 2);
+
+    };
 
 	module.exports = StaticEntity;
 });
