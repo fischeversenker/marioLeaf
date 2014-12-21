@@ -1,25 +1,20 @@
+/*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4 */
+/*global define */
 define(function(require, exports, module)  {
 
     var Engine = require('marioEngine');
-    var Player= require('entities/player');
+    var Populator = require('populator');
 
     exports.init = function() {
 
-        var core = Engine.getCore();
-        core.setDOM($('#myCanvas'));
+        var Core = Engine.getCore();
+        Core.setDOM($('#myCanvas'));
 
-        var world = core.createWorld();
-        //fill world
-        var player = new Player();
-        world.setPlayer(player);
-        world.addEntity(Engine.getEntityFactory().createEntity('SimpleShape', { x: 250,
-                                                                                y: 100,
-                                                                                width: 100,
-                                                                                height: 200,
-                                                                                color: '#b2f'}));
-        core.setActiveWorld(world);
-        core.registerTicker(1, function() {}, this);
-        core.start();
+        var world = Core.createWorld();
+        Core.setActiveWorld(world);
 
+        Populator.populate(world);
+
+        Core.start();
     };
 });
